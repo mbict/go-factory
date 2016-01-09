@@ -14,7 +14,7 @@ type PersistHandler func(interface{})
 type Factory interface {
 	Create(model interface{}, data Data) error
 	SetPersistHandler(handler PersistHandler)
-	Definition(model interface{}, definition Definition)
+	Definition(model interface{}, definition Definition) Factory
 }
 
 type factory struct {
@@ -98,9 +98,10 @@ func (f factory) Create(model interface{}, data Data) error {
 // Definition will add a new model to the definitions table
 // The provided definition should be a function who accepts the data as the first param
 // and should return the model
-func (f factory) Definition(model interface{}, definition Definition) {
+func (f *factory) Definition(model interface{}, definition Definition) Factory {
 	t := getType(model)
 	f.definitions[t] = definition
+	return f
 }
 
 // Generate generates the data based on the definition function and overwrites data
