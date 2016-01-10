@@ -50,7 +50,7 @@ The second param is a map with Data that overrides the random data the the defin
 #### example: Value type
 ```GO
 seed := &myStruct{}
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 #### example: Value type with a fixed id of 1
@@ -60,32 +60,31 @@ seed := &myStruct{}
 err := f.Create(&seed, Data{"Id": 123})
 ```
 
-
 #### example: Pointer to a initialized Value
 ```GO
 seed := &myStruct{}
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 #### example: Nil pointer
 Create will allocate and initialize the pointer and seed with data
 ```GO
 seed := (*myStruct)(nil)
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 #### example: fixed array
 Create will seed all the 3 structures in the array with data
 ```GO
 var seeds [3]myStruct
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 #### example: fixed array with nil pointers
 Create will allocate all 3 structures in the array, and seed them with data
 ```GO
 var seeds [3]*myStruct
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 #### example: Slice
@@ -96,7 +95,7 @@ var seeds = []*myStruct{
 		{Id: 2},
 		{Id: 3},
 	}
-err := f.Create(&seed, nil)
+err := f.Create(&seed)
 ```
 
 ### Model Definitions

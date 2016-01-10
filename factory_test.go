@@ -30,7 +30,7 @@ func TestCreateSingleDefinitionWithInitializedStruct(t *testing.T) {
 	factory := createFactory()
 	seed := testStruct{}
 
-	err := factory.Create(&seed, nil)
+	err := factory.Create(&seed)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -68,7 +68,7 @@ func TestCreateSingleDefinitionWithNilPointer(t *testing.T) {
 	factory := createFactory()
 	seed := (*testStruct)(nil)
 
-	err := factory.Create(&seed, nil)
+	err := factory.Create(&seed)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -91,7 +91,7 @@ func TestCreateSingleDefinitionWithInitializedPointer(t *testing.T) {
 	factory := createFactory()
 	seed := &testStruct{}
 
-	err := factory.Create(&seed, nil)
+	err := factory.Create(&seed)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -114,7 +114,7 @@ func TestCreateMultipleDefinitionsWithInitializedArray(t *testing.T) {
 	factory := createFactory()
 	var seeds [3]testStruct
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -143,7 +143,7 @@ func TestCreateMultipleDefinitionsWithInitializedSlice(t *testing.T) {
 		{},
 	}
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -193,7 +193,7 @@ func TestCreateMultipleDefinitionsWithUnintializedPtrArray(t *testing.T) {
 	factory := createFactory()
 	var seeds [3]*testStruct
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -222,7 +222,7 @@ func TestCreateMultipleDefinitionsWithNilPtrSlice(t *testing.T) {
 		nil,
 	}
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -251,7 +251,7 @@ func TestCreateMultipleDefinitionsWithIntializedPtrSlice(t *testing.T) {
 		{Id: 7},
 	}
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -293,7 +293,7 @@ func TestCallToPersistOnce(t *testing.T) {
 		}
 	})
 
-	err := factory.Create(&seed, nil)
+	err := factory.Create(&seed)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -322,7 +322,7 @@ func TestCallToPersistForSlices(t *testing.T) {
 		calledTimes += 1
 	})
 
-	err := factory.Create(&seeds, nil)
+	err := factory.Create(&seeds)
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -341,7 +341,7 @@ func TestThrowsErrorWhenCreateUnregisteredDefinitionType(t *testing.T) {
 	factory := NewFactory()
 	seed := (*testStruct)(nil)
 
-	err := factory.Create(&seed, nil)
+	err := factory.Create(&seed)
 
 	if err == nil {
 		t.Fatalf("Should generate a error but got nothing")
@@ -356,7 +356,7 @@ func TestThrowsErrorWhenCreateModelNotByReference(t *testing.T) {
 	factory := createFactory()
 	seed := (*testStruct)(nil)
 
-	err := factory.Create(seed, nil)
+	err := factory.Create(seed)
 
 	if err == nil {
 		t.Fatalf("Should generate a error but got nothing")

@@ -12,7 +12,7 @@ type definitionList map[reflect.Type]Definition
 type PersistHandler func(interface{})
 
 type Factory interface {
-	Create(model interface{}, data Data) error
+	Create(model interface{}, data ...Data) error
 	SetPersistHandler(handler PersistHandler)
 	Definition(model interface{}, definition Definition) Factory
 }
@@ -44,7 +44,7 @@ func (f *factory) SetPersistHandler(handler PersistHandler) {
 // - array/slices pointer type ([]*yourStruct)
 // when you provide a array/slice make sure it has elements (nil or initialized)
 // create will fill all the elements
-func (f factory) Create(model interface{}, data Data) error {
+func (f factory) Create(model interface{}, data ...Data) error {
 	//find the type
 	t := getType(model)
 	def, ok := f.definitions[t]
@@ -75,7 +75,7 @@ func (f factory) Create(model interface{}, data Data) error {
 				vs.Set(reflect.New(vs.Type().Elem()))
 			}
 
-			if err := populate(vs.Interface(), generate(def, data)); err != nil {
+			if err := populate(vs.Interface(), generate(def, data...)); err != nil {
 				return err
 			}
 
@@ -84,7 +84,7 @@ func (f factory) Create(model interface{}, data Data) error {
 			}
 		}
 	} else { //singular types
-		if err := populate(model, generate(def, data)); err != nil {
+		if err := populate(model, generate(def, data...)); err != nil {
 			return err
 		}
 
@@ -106,11 +106,20 @@ func (f *factory) Definition(model interface{}, definition Definition) Factory {
 
 // Generate generates the data based on the definition function and overwrites data
 // with the fixed data if provided
-func generate(def Definition, data Data) Data {
-	fillData := def(data)
-	for key, value := range data {
+func generate(def Definition, data ...Data) Data {
+	overrideValues := Data{}
+	for _, values := range data {
+		for key, value := range values {
+			overrideValues[key] = value
+		}
+	}
+
+	fillData := def(overrideValues)
+
+	for key, value := range overrideValues {
 		fillData[key] = value
 	}
+
 	return fillData
 }
 
