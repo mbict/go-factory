@@ -6,11 +6,18 @@ import (
 	"reflect"
 )
 
+// Data represents the map structure for the data fixtures
 type Data map[string]interface{}
+
+// Definition is a function who wraps the data creation logic to fill a structure.
 type Definition func(data Data) Data
+
 type definitionList map[reflect.Type]Definition
+
+// PersistHandler is a function who is called after a new model is created and needs to be stored somewhere.
 type PersistHandler func(interface{})
 
+// Factory is a model factory to create database models on the fly for testing.
 type Factory interface {
 	Create(model interface{}, data ...Data) error
 	SetPersistHandler(handler PersistHandler)

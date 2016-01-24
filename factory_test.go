@@ -6,7 +6,7 @@ import (
 
 type (
 	testStruct struct {
-		Id   int
+		ID   int
 		Name string
 	}
 )
@@ -15,7 +15,7 @@ func createFactory() Factory {
 	f := NewFactory()
 	f.Definition((*testStruct)(nil), func(data Data) Data {
 		return Data{
-			"Id":   1,
+			"ID":   1,
 			"Name": "foo",
 		}
 	})
@@ -36,8 +36,8 @@ func TestCreateSingleDefinitionWithInitializedStruct(t *testing.T) {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
 	}
 
-	if seed.Id != 1 {
-		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+	if seed.ID != 1 {
+		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 	}
 
 	if seed.Name != "foo" {
@@ -49,14 +49,14 @@ func TestCreateSingleDefinitionWithFixedValues(t *testing.T) {
 	factory := createFactory()
 	seed := testStruct{}
 
-	err := factory.Create(&seed, Data{"Id": 2, "Name": "bar"})
+	err := factory.Create(&seed, Data{"ID": 2, "Name": "bar"})
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
 	}
 
-	if seed.Id != 2 {
-		t.Errorf("Expected ID value `%d` but got `%d`", 2, seed.Id)
+	if seed.ID != 2 {
+		t.Errorf("Expected ID value `%d` but got `%d`", 2, seed.ID)
 	}
 
 	if seed.Name != "bar" {
@@ -78,8 +78,8 @@ func TestCreateSingleDefinitionWithNilPointer(t *testing.T) {
 		t.Error("Created model is nil instead of a initialized object")
 	}
 
-	if seed.Id != 1 {
-		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+	if seed.ID != 1 {
+		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 	}
 
 	if seed.Name != "foo" {
@@ -101,8 +101,8 @@ func TestCreateSingleDefinitionWithInitializedPointer(t *testing.T) {
 		t.Error("Created model is nil instead of a initialized object")
 	}
 
-	if seed.Id != 1 {
-		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+	if seed.ID != 1 {
+		t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 	}
 
 	if seed.Name != "foo" {
@@ -125,8 +125,8 @@ func TestCreateMultipleDefinitionsWithInitializedArray(t *testing.T) {
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 1 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+		if seed.ID != 1 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 		}
 
 		if seed.Name != "foo" {
@@ -154,8 +154,8 @@ func TestCreateMultipleDefinitionsWithInitializedSlice(t *testing.T) {
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 1 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+		if seed.ID != 1 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 		}
 
 		if seed.Name != "foo" {
@@ -168,7 +168,7 @@ func TestCreateMultipleDefinitionsWithInitializedArrayAndFixedValues(t *testing.
 	factory := createFactory()
 	var seeds [3]testStruct
 
-	err := factory.Create(&seeds, Data{"Id": 2, "Name": "bar"})
+	err := factory.Create(&seeds, Data{"ID": 2, "Name": "bar"})
 
 	if err != nil {
 		t.Fatalf("Should not generate a error but got a error `%s`", err.Error())
@@ -179,8 +179,8 @@ func TestCreateMultipleDefinitionsWithInitializedArrayAndFixedValues(t *testing.
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 2 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 2, seed.Id)
+		if seed.ID != 2 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 2, seed.ID)
 		}
 
 		if seed.Name != "bar" {
@@ -204,8 +204,8 @@ func TestCreateMultipleDefinitionsWithUnintializedPtrArray(t *testing.T) {
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 1 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+		if seed.ID != 1 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 		}
 
 		if seed.Name != "foo" {
@@ -233,8 +233,8 @@ func TestCreateMultipleDefinitionsWithNilPtrSlice(t *testing.T) {
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 1 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+		if seed.ID != 1 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 		}
 
 		if seed.Name != "foo" {
@@ -246,9 +246,9 @@ func TestCreateMultipleDefinitionsWithNilPtrSlice(t *testing.T) {
 func TestCreateMultipleDefinitionsWithIntializedPtrSlice(t *testing.T) {
 	factory := createFactory()
 	var seeds = []*testStruct{
-		{Id: 5},
-		{Id: 6},
-		{Id: 7},
+		{ID: 5},
+		{ID: 6},
+		{ID: 7},
 	}
 
 	err := factory.Create(&seeds)
@@ -262,8 +262,8 @@ func TestCreateMultipleDefinitionsWithIntializedPtrSlice(t *testing.T) {
 	}
 
 	for _, seed := range seeds {
-		if seed.Id != 1 {
-			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.Id)
+		if seed.ID != 1 {
+			t.Errorf("Expected ID value `%d` but got `%d`", 1, seed.ID)
 		}
 
 		if seed.Name != "foo" {
@@ -281,7 +281,7 @@ func TestCallToPersistOnce(t *testing.T) {
 	seed := testStruct{}
 	calledTimes := 0
 	factory.SetPersistHandler(func(m interface{}) {
-		calledTimes += 1
+		calledTimes++
 		m, ok := m.(*testStruct)
 
 		if !ok {
@@ -319,7 +319,7 @@ func TestCallToPersistForSlices(t *testing.T) {
 			t.Errorf("persits model is not the same as the provided model to create")
 		}
 
-		calledTimes += 1
+		calledTimes++
 	})
 
 	err := factory.Create(&seeds)

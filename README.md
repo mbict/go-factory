@@ -1,6 +1,8 @@
+[![wercker status](https://app.wercker.com/status/be8c30e09f9f86daed8ada29e7ed1459/s "wercker status")](https://app.wercker.com/project/bykey/be8c30e09f9f86daed8ada29e7ed1459)
 [![Build Status](https://travis-ci.org/mbict/go-factory.png?branch=master)](https://travis-ci.org/mbict/go-factory)
 [![GoDoc](https://godoc.org/github.com/mbict/go-factory?status.png)](http://godoc.org/github.com/mbict/go-factory)
 [![GoCover](http://gocover.io/_badge/github.com/mbict/go-factory)](http://gocover.io/github.com/mbict/go-factory)
+[![GoReportCard](http://goreportcard.com/badge/mbict/go-factory)](http://goreportcard.com/report/mbict/go-factory)
 
 Factory
 =======
